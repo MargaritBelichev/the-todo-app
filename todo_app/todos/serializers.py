@@ -23,5 +23,5 @@ class TodoSerializer(serializers.ModelSerializer):
 class TodoListMetaSerializer(serializers.ModelSerializer):
     class Meta:
         model = TodoList
-        fields = ('id', 'listName', 'owner')
+        fields = ('id', 'listName', 'owner', 'isSuccessful')
         # depth = 1

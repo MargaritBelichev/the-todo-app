@@ -6,10 +6,7 @@ from django.conf import settings
 class TodoList(models.Model):
     listName = models.CharField(max_length=50)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1)
-
-    # @property
-    # def todos(self):
-    #     return self.orders_set.all()
+    isSuccessful = models.BooleanField(default=False)
 
     def __str__(self):
         return self.listName
