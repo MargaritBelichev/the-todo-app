@@ -4,13 +4,6 @@ from .serializers import TodoSerializer, TodoListMetaSerializer, StatusSerialize
 from .models import  TodoList, Status, Todo
 
 
-class TempTodoView(generics.ListCreateAPIView):
-    queryset = Todo.objects.all()
-    serializer_class = TodoSerializer
-    authentication_classes = []
-    permission_classes = []
-
-
 class StatusDetailsView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Status.objects.all()
     serializer_class = StatusSerializer

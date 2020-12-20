@@ -1,4 +1,4 @@
-from .views import TodoListView, TodoView, StatusView, StatusDetailsView, TodoListDetailsView, TodoDetailsView, TempTodoView
+from .views import TodoListView, TodoView, StatusView, StatusDetailsView, TodoListDetailsView, TodoDetailsView
 from django.urls import path
 
 
@@ -9,5 +9,4 @@ urlpatterns = [
     path('<int:todo_list_pk>/todos/<int:pk>', TodoDetailsView.as_view()),
     path('todos/statuses/', StatusView.as_view()),
     path('todos/statuses/<int:pk>', StatusDetailsView.as_view()),
-    path('todos/', TempTodoView.as_view()), # NOTE: for testing should remove when done
 ]
