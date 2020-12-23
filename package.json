@@ -1,0 +1,40 @@
+{
+  "name": "the_todo_app",
+  "version": "1.0.0",
+  "description": "django+reactjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode development --watch ./todo_app/frontend/src/index.js --output-path ./todo_app/frontend/static/frontend/main.js",
+    "build": "webpack --mode production ./todo_app/frontend/src/index.js --output-path ./todo_app/frontend/static/frontend/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MargaritBelichev/the-todo-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MargaritBelichev/the-todo-app/issues"
+  },
+  "homepage": "https://github.com/MargaritBelichev/the-todo-app#readme",
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "babel-loader": "^8.2.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-polyfill": "^6.26.0",
+    "webpack": "^5.11.0",
+    "webpack-cli": "^4.2.0"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-redux": "^7.2.2",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
+  }
+}
