@@ -5,7 +5,7 @@ from todos.models import TodoList, Status, Todo
 class StatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = Status
-        fields = ('name')
+        fields = ('name',)
 
 
 class TodoSerializer(serializers.ModelSerializer):

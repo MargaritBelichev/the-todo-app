@@ -2,11 +2,14 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { store } from './redux';
 
-import AppWrapper from './AppWrapper'
+import AppWrapper from './AppWrapper';
+import UserAuthentication from './UserAuthentication';
 
 const App = () => {
   return <Provider store={store}>
-    <AppWrapper/>
+    <UserAuthentication>
+      <AppWrapper/>
+    </UserAuthentication>
   </Provider>
 }
 

@@ -3,26 +3,29 @@ from django.shortcuts import get_object_or_404
 from .serializers import TodoSerializer, TodoListMetaSerializer, StatusSerializer
 from .models import  TodoList, Status, Todo
 
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from django.contrib.auth.models import User
+
 
 class StatusDetailsView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Status.objects.all()
     serializer_class = StatusSerializer
-    authentication_classes = []
+    authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAdminUser]
 
 
 class StatusView(generics.ListCreateAPIView):
     queryset = Status.objects.all()
     serializer_class = StatusSerializer
-    authentication_classes = []
+    authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAdminUser]
 
 
 class TodoListDetailsView(generics.RetrieveUpdateDestroyAPIView):
     queryset = TodoList.objects.all()
     serializer_class = TodoListMetaSerializer
-    authentication_classes = []
-    permission_classes = []
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -34,14 +37,23 @@ class TodoListDetailsView(generics.RetrieveUpdateDestroyAPIView):
 class TodoListView(generics.ListCreateAPIView):
     queryset = TodoList.objects.all()
     serializer_class = TodoListMetaSerializer
-    authentication_classes = []
-    permission_classes = []
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    # TODO: uncomment when implementing login
+    # def get_queryset(self):
+    #     token = self.request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+    #     data = {'token': token}
+    #     ddd = JWTAuthentication()
+    #     ccc = ddd.get_validated_token(token)
+    #     user = ddd.get_user(ccc)
+    #     return TodoList.objects.filter(owner=user)
 
 
 class TodoView(generics.ListCreateAPIView):
     serializer_class = TodoSerializer
-    authentication_classes = []
-    permission_classes = []
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         todoListId = self.kwargs['pk']
@@ -65,8 +77,8 @@ class TodoView(generics.ListCreateAPIView):
 
 class TodoDetailsView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TodoSerializer
-    authentication_classes = []
-    permission_classes = []
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         todo_id = self.kwargs['pk']

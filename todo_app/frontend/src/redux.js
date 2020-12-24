@@ -2,14 +2,23 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import axios from 'axios';
 
-const uuid = () => {
-  return 1
+const getRequestHeaders = () => {
+  const token = store.getState().tokens.access;
+  return {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  }
 }
 
 const initialState = {
   todoLists: [],
   selectedTodoList: null,
-  todos: []
+  todos: [],
+  tokens: {
+    access: '',
+    refresh: ''
+  }
 };
 
 export const store = createStore(
@@ -53,6 +62,11 @@ function reducer(state = initialState, action) {
         ...state,
         todos: state.todos.filter((todo) => todo.id !== action.payload)
       };
+    case 'SET_TOKENS':
+      return {
+        ...state,
+        tokens: action.payload
+      };
     default:
       return state;
   }
@@ -61,7 +75,7 @@ function reducer(state = initialState, action) {
 // TodoList
 export function fetchTodoListsAction() {
   return (dispatch) => {
-    axios.get('/api/todolists/')
+    axios.get('/api/todolists/', getRequestHeaders())
     .then(function (response) {
       dispatch({type: 'SET_TODO_LISTS', payload: response.data});
     })
@@ -78,7 +92,7 @@ export function addTodoListsAction(newTodoListName) {
       owner: 1,
       isSuccessful: false
     }
-    axios.post('/api/todolists/', body)
+    axios.post('/api/todolists/', body, getRequestHeaders())
     .then(function (response) {
       dispatch({type: 'ADD_TODO_LIST', payload: response.data});
     })
@@ -90,7 +104,7 @@ export function addTodoListsAction(newTodoListName) {
 
 export function removeTodoListsAction(todoListId) {
   return (dispatch) => {
-    axios.delete(`/api/todolists/${todoListId}`)
+    axios.delete(`/api/todolists/${todoListId}`, getRequestHeaders())
     .then(function (response) {
       dispatch({type: 'REMOVE_TODO_LIST', payload: todoListId});
     })
@@ -102,7 +116,7 @@ export function removeTodoListsAction(todoListId) {
 // Todos
 export function fetchTodosAction(todoListId) {
   return (dispatch) => {
-    axios.get(`/api/todolists/${todoListId}/todos/`)
+    axios.get(`/api/todolists/${todoListId}/todos/`, getRequestHeaders())
     .then(function (response) {
       dispatch({type: 'SET_TODOS', payload: response.data});
     })
@@ -119,7 +133,7 @@ export function addTodoAction(todoListId, newTodoName, newTodoNote) {
       note: newTodoNote,
       status: 2
     }
-    axios.post(`/api/todolists/${todoListId}/todos/`, body)
+    axios.post(`/api/todolists/${todoListId}/todos/`, body, getRequestHeaders())
     .then(function (response) {
       dispatch({type: 'ADD_TODO', payload: response.data});
     })
@@ -131,11 +145,24 @@ export function addTodoAction(todoListId, newTodoName, newTodoNote) {
 
 export function removeTodoAction(todoListId, todoId) {
   return (dispatch) => {
-    axios.delete(`/api/todolists/${todoListId}/todos/${todoId}`)
+    axios.delete(`/api/todolists/${todoListId}/todos/${todoId}`, getRequestHeaders())
     .then(function (response) {
       dispatch({type: 'REMOVE_TODO', payload: todoId});
     })
     .catch(function (error) {
+      console.log(error);
+    })
+  }
+}
+// Login
+export const loginUserAction = userCredentials => {
+  return dispatch => {
+    axios.post('/api/auth/token', userCredentials)
+    .then( response => {
+      // TODO: store refresh token in cookie and set a handler for when the access token expires
+      dispatch({type: 'SET_TOKENS', payload: response.data});
+    })
+    .catch( error => {
       console.log(error);
     })
   }
