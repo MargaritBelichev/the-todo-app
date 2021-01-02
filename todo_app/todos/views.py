@@ -35,19 +35,27 @@ class TodoListDetailsView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class TodoListView(generics.ListCreateAPIView):
-    queryset = TodoList.objects.all()
     serializer_class = TodoListMetaSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
-    # TODO: uncomment when implementing login
-    # def get_queryset(self):
-    #     token = self.request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
-    #     data = {'token': token}
-    #     ddd = JWTAuthentication()
-    #     ccc = ddd.get_validated_token(token)
-    #     user = ddd.get_user(ccc)
-    #     return TodoList.objects.filter(owner=user)
+    def get_queryset(self):
+        token = self.request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+        auth_class_instance = JWTAuthentication()
+        validated_token = auth_class_instance.get_validated_token(token)
+        user = auth_class_instance.get_user(validated_token)
+        return TodoList.objects.filter(owner=user)
+
+    def create(self, request, *args, **kwargs):
+        token = self.request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+        auth_class_instance = JWTAuthentication()
+        validated_token = auth_class_instance.get_validated_token(token)
+        user = auth_class_instance.get_user(validated_token)
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        new_instance = serializer.create(serializer.data, owner=user)
+        response_body = TodoListMetaSerializer(new_instance)
+        return response.Response(response_body.data, status=status.HTTP_201_CREATED)
 
 
 class TodoView(generics.ListCreateAPIView):

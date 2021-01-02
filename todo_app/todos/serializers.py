@@ -12,7 +12,6 @@ class TodoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Todo
         fields = ('id', 'title', 'note', 'status', 'createdAt')
-        # depth = 1
 
     def create(self, validated_data, todoList, status):
         validated_data['todoList'] = todoList
@@ -24,4 +23,7 @@ class TodoListMetaSerializer(serializers.ModelSerializer):
     class Meta:
         model = TodoList
         fields = ('id', 'listName', 'owner', 'isSuccessful')
-        # depth = 1
+
+    def create(self, validated_data, owner):
+        validated_data['owner'] = owner
+        return TodoList.objects.create(**validated_data)

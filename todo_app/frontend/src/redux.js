@@ -1,6 +1,8 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import axios from 'axios';
+import jwtDecode from 'jwt-decode';
+import Cookie from 'js-cookie';
 
 const getRequestHeaders = () => {
   const token = store.getState().tokens.access;
@@ -67,11 +69,28 @@ function reducer(state = initialState, action) {
         ...state,
         tokens: action.payload
       };
+    case 'RESET_TOKENS':
+      return {
+        ...state,
+        tokens: {
+          access: '',
+          refresh: ''
+        }
+      };
     default:
       return state;
   }
 }
 // Actions
+
+// Helpers
+const getAccessTokenRefreshTimer = (expires) => {
+  // NOTE: multiplying by 1000 b/c "expires" is a UNIX timestamp
+  // NOTE: refreshing the token 2 min before it expires ( - 120000)
+  return ((expires * 1000) - Date.now()) - 120000
+}
+
+
 // TodoList
 export function fetchTodoListsAction() {
   return (dispatch) => {
@@ -159,11 +178,37 @@ export const loginUserAction = userCredentials => {
   return dispatch => {
     axios.post('/api/auth/token', userCredentials)
     .then( response => {
-      // TODO: store refresh token in cookie and set a handler for when the access token expires
+      const accessTokenConfig = jwtDecode(response.data.access);
+      setTimeout(() => dispatch(refreshAccessTokenAction()), getAccessTokenRefreshTimer(accessTokenConfig.exp))
       dispatch({type: 'SET_TOKENS', payload: response.data});
+      Cookie.set('refreshToken', response.data.refresh);
     })
     .catch( error => {
       console.log(error);
     })
   }
+}
+
+export const refreshAccessTokenAction = () => {
+  return dispatch => {
+    const tokenObject = {refresh: Cookie.get('refreshToken')};
+    axios.post('/api/auth/token/refresh', tokenObject)
+    .then( response => {
+      const accessTokenConfig = jwtDecode(response.data.access);
+      const payload = {
+        access: response.data.access,
+        refresh: store.getState().tokens.refresh
+      }
+      setTimeout(() => dispatch(refreshAccessTokenAction()), getAccessTokenRefreshTimer(accessTokenConfig.exp))
+      dispatch({type: 'SET_TOKENS', payload});
+    })
+    .catch( error => {
+      console.log(error);
+    })
+  }
+}
+
+export const logoutUserAction = (dispatch) => {
+  Cookie.remove('refreshToken');
+  dispatch({type: 'RESET_TOKENS'});
 }
