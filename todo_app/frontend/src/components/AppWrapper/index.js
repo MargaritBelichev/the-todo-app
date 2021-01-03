@@ -6,8 +6,8 @@ import {
   Link,
 } from "react-router-dom";
 
-import TodoLists from './components/TodoLists'
-import Todos from './components/Todos'
+import TodoLists from '../../pages/TodoLists';
+import Todos from '../../pages/Todos';
 
 const AppWrapper = () => {
   let id = 321

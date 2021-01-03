@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchTodosAction, addTodoAction, removeTodoAction } from '../redux';
+import { fetchTodosAction, addTodoAction, removeTodoAction } from './redux';
 import { useSelector, useDispatch } from 'react-redux';
 
 
@@ -19,12 +19,12 @@ const Todos = () => {
   return  <div>
     <h1>Todos</h1>
     <input
-      placeholder={'Enter Todo Name'}
+      placeholder='Enter Todo Name'
       value={newTodoName}
       onChange={(event) => setNewTodoName(event.target.value)}
     />
     <input
-      placeholder={'Enter Todo Note'}
+      placeholder='Enter Todo Note'
       value={newTodoNote}
       onChange={(event) => setNewTodoNote(event.target.value)}
     />

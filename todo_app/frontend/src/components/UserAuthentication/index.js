@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Cookie from 'js-cookie';
 import { refreshAccessTokenAction, logoutUserAction } from './redux';
 
-import Login from './Login';
+import Login from '../Login';
 
 
 const UserAuthentication = (props) => {
