@@ -36,13 +36,12 @@ const Todos = () => {
   };
 
   return  <div className='Todos'>
-    <Tooltip title="Back to Todo Lists">
-      <Fab className='todo-lists-link'>
-        <Link to="/"><ArrowBack /></Link>
-      </Fab>
-    </Tooltip>
-
-    <h1 className='header'>{todoList? todoList.listName : 'Loading...'}</h1>
+    <div className="todos-header">
+      <Tooltip title="Back to Todo Lists">
+        <Link className="back-link" to="/"><ArrowBack /></Link>
+      </Tooltip>
+      <h1 className='header'>{todoList? todoList.listName : 'Loading...'}</h1>
+    </div>
     <ul>
       <form onSubmit={_onSubmit}>
         <TextField

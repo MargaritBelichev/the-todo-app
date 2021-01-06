@@ -7,6 +7,7 @@ class TodoList(models.Model):
     listName = models.CharField(max_length=50)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1)
     isSuccessful = models.BooleanField(default=False)
+    createdAt = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.listName

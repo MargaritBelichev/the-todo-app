@@ -50,7 +50,7 @@ const TodoLists = () => {
               />
               <Link to={`/todos/${list.id}`}><h4>{list.listName}</h4></Link>
             </div>
-            <span onClick={() => dispatch(removeTodoListsAction(list.id))}><Delete/></span>
+            <span onClick={() => dispatch(removeTodoListsAction(list.id))}><Delete color="secondary"/></span>
           </li>
         </Container>
       })}

@@ -4,21 +4,22 @@
   flex: auto;
 }
 
-.todo-lists-link {
-  color: #9b9b9b;
-  position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-  text-decoration: none;
-}
-
 .todo-lists-link:hover {
   text-decoration: none;
   color: #9b9b9b;
 }
 
-
 .todo-details {
   display: flex;
   flex-direction: column;
+}
+
+.back-link {
+  padding: 1rem;
+}
+
+.todos-header {
+  display: flex;
+  flex: auto;
+  align-items: center;
 }

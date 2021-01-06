@@ -44,7 +44,7 @@ class TodoListView(generics.ListCreateAPIView):
         auth_class_instance = JWTAuthentication()
         validated_token = auth_class_instance.get_validated_token(token)
         user = auth_class_instance.get_user(validated_token)
-        return TodoList.objects.filter(owner=user)
+        return TodoList.objects.filter(owner=user).order_by('-createdAt')
 
     def create(self, request, *args, **kwargs):
         token = self.request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]

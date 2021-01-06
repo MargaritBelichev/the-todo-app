@@ -32,7 +32,7 @@ function reducer(state = initialState, action) {
     case 'ADD_TODO_LIST':
       return {
         ...state,
-        todoLists: [...state.todoLists, action.payload]
+        todoLists: [action.payload, ...state.todoLists]
       };
     case 'REMOVE_TODO_LIST':
       return {

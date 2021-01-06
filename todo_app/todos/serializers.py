@@ -22,7 +22,7 @@ class TodoSerializer(serializers.ModelSerializer):
 class TodoListMetaSerializer(serializers.ModelSerializer):
     class Meta:
         model = TodoList
-        fields = ('id', 'listName', 'owner', 'isSuccessful')
+        fields = ('id', 'listName', 'owner', 'isSuccessful', 'createdAt')
 
     def create(self, validated_data, owner):
         validated_data['owner'] = owner
