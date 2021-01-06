@@ -1,0 +1,83 @@
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  /* overflow: hidden; */
+  /* background-color: #f5fffa; */
+}
+
+@font-face {
+  font-family: 'Indie Flower';
+}
+
+@font-face {
+  font-family: 'Maven Pro', sans-serif;
+}
+
+#app {
+  display: flex;
+  flex: auto;
+  overflow: auto;
+}
+
+.MuiFab-root {
+  position: fixed !important;
+}
+
+h1.header {
+  font-family: Maven Pro;
+}
+
+/* input {
+  border: none;
+  border-bottom: 1px solid #ddd;
+  background-color: transparent;
+  outline: none;
+  font-family: Indie Flower;
+} */
+
+/* .submit-button {
+  border-radius: 50%;
+  height: 3rem;
+  background-color: transparent;
+  border-color: chartreuse;
+  color: #9d9d9d;
+  font-family: Maven Pro;
+} */
+
+form {
+  display: flex;
+  flex-direction: row;
+  /* border: 1px solid #fff; */
+  padding: 2rem;
+  /* border-radius: 1rem; */
+  /* width: fit-content; */
+  /* box-shadow: 1px 1px 5px 1px chartreuse; */
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+  padding: 0;
+}
+
+li {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #fff;
+  padding: 1rem;
+  border-radius: 1rem;
+  font-family: Indie Flower;
+  margin-top: 1rem;
+  justify-content: space-between;
+  box-shadow: 1px 1px 5px 1px #d3d3d3;
+}
+/*
+li > a {
+  color: #9d9d9d;
+} */
+
+/* #eb974f */

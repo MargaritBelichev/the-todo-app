@@ -1,0 +1,10 @@
+.TodoLists {
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+}
+
+.todo-list-details {
+  display: flex;
+  align-items: flex-end;
+}

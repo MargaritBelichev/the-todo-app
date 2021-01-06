@@ -1,0 +1,24 @@
+.Todos {
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+}
+
+.todo-lists-link {
+  color: #9b9b9b;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  text-decoration: none;
+}
+
+.todo-lists-link:hover {
+  text-decoration: none;
+  color: #9b9b9b;
+}
+
+
+.todo-details {
+  display: flex;
+  flex-direction: column;
+}

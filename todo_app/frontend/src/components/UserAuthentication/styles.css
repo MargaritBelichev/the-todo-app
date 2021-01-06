@@ -1,0 +1,16 @@
+.UserAuthentication {
+  flex: auto;
+  display: flex;
+  overflow: auto;
+}
+
+.logout-button {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  border-radius: 50%;
+  height: 4rem;
+  background-color: transparent;
+  border-color: chartreuse;
+  color: #9d9d9d;
+}

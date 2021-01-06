@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { store } from './redux';
+import './global.css';
 
 import AppWrapper from './components/AppWrapper';
 import UserAuthentication from './components/UserAuthentication';

@@ -4,9 +4,10 @@ import thunk from 'redux-thunk';
 
 const initialState = {
   todoLists: [],
-  selectedTodoList: null,
+  activeTodoList: null,
   todos: [],
   notifications: [],
+  statuses: [],
   tokens: {
     access: '',
     refresh: ''
@@ -38,6 +39,18 @@ function reducer(state = initialState, action) {
         ...state,
         todoLists: state.todoLists.filter((todoList) => todoList.id !== action.payload)
       };
+    case 'UPDATE_TODO_LIST':
+      const updatedTodoListIndex = state.todoLists.findIndex((todoList) => todoList.id === action.payload.id)
+      state.todoLists[updatedTodoListIndex] = action.payload
+      return {
+        ...state,
+        todoLists: [...state.todoLists]
+      };
+    case 'SET_ACTIVE_TODO_LIST':
+      return {
+        ...state,
+        activeTodoList: action.payload
+      }
     // Todos
     case 'SET_TODOS':
       return {
@@ -53,6 +66,13 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         todos: state.todos.filter((todo) => todo.id !== action.payload)
+      };
+    case 'UPDATE_TODO':
+      const updatedTodoIndex = state.todos.findIndex((todo) => todo.id === action.payload.id)
+      state.todos[updatedTodoIndex] = action.payload
+      return {
+        ...state,
+        todos: [...state.todos]
       };
     case 'SET_TOKENS':
       return {
@@ -76,6 +96,11 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         notifications: [...state.notifications, action.payload]
+      };
+    case 'SET_STATUSES':
+      return {
+        ...state,
+        statuses: [...action.payload]
       };
     default:
       return state;

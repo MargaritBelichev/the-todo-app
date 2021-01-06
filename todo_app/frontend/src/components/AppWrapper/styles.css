@@ -1,0 +1,12 @@
+.AppWrapper {
+  display: flex;
+  flex: auto;
+  overflow: auto;
+}
+
+.active-component {
+  display: flex;
+  flex: auto;
+  margin: auto;
+  padding: 1rem;
+}

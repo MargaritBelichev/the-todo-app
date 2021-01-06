@@ -43,3 +43,16 @@ export function removeTodoListsAction(todoListId) {
     })
   }
 }
+
+export const toggleSuccessfulTodoListAction = (list) => {
+  list.isSuccessful = !list.isSuccessful
+  return (dispatch) => {
+    axios.put(`/api/todolists/${list.id}`, list, getRequestHeaders())
+    .then(function (response) {
+      dispatch({type: 'UPDATE_TODO_LIST', payload: response.data});
+    })
+    .catch(function (error) {
+      dispatch(addErrorNotificationAction(error.response));
+    })
+  }
+}

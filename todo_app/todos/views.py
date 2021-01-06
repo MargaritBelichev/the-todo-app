@@ -11,14 +11,14 @@ class StatusDetailsView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Status.objects.all()
     serializer_class = StatusSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class StatusView(generics.ListCreateAPIView):
     queryset = Status.objects.all()
     serializer_class = StatusSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class TodoListDetailsView(generics.RetrieveUpdateDestroyAPIView):

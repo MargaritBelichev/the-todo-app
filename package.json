@@ -24,11 +24,15 @@
     "babel-loader": "^8.2.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-polyfill": "^6.26.0",
+    "css-loader": "^5.0.1",
     "source-map-loader": "^2.0.0",
+    "style-loader": "^2.0.0",
     "webpack": "^5.11.0",
     "webpack-cli": "^4.2.0"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.2",
+    "@material-ui/icons": "^4.11.2",
     "axios": "^0.21.1",
     "js-cookie": "^2.2.1",
     "jwt-decode": "^3.1.2",

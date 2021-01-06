@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
+import './styles.css';
 import { useSelector, useDispatch } from 'react-redux';
 import Cookie from 'js-cookie';
 import { refreshAccessTokenAction, logoutUserAction } from './redux';
+import { Fab, Tooltip } from '@material-ui/core';
+import { ExitToApp } from '@material-ui/icons';
 
-import Login from '../Login';
+import Login from './Login';
 
 
 const UserAuthentication = (props) => {
@@ -15,13 +18,17 @@ const UserAuthentication = (props) => {
     }
   }, []);
 
-  return <div className={'user-authentication'}>
+  return <div className='UserAuthentication'>
     {
     tokens.access ?
-    <div>
-      <button onClick={() => dispatch(logoutUserAction)}>Logout</button>
+    <>
+      <Tooltip title="Logout">
+        <Fab className='logout-button' color='secondary' onClick={() => dispatch(logoutUserAction)}>
+          <ExitToApp/>
+        </Fab>
+      </Tooltip>
       {props.children}
-    </div>
+    </>
     : <Login/>
     }
   </div>

@@ -1,0 +1,7 @@
+.Notifications {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 9000;
+  background-color: transparent;
+}
